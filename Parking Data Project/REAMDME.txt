@@ -1,0 +1,28 @@
+Step 1:
+Go to /mapreduce-test/mapreduce-test-data and run the file "get_data_7M.sh" which gets the first 7 million rows of the NYC parking data and saves them into the data folder
+We will process the data directly as a json file
+
+Step 2:
+Go to /mapreduce-test/mapreduce-test-python/p1 and excute "load_data.sh" which copies data into hdfs, now we can remove it from the disk and the mapreduce codes will access it directly in HDFS.
+
+Step 3:
+All the questions in Part 1 have the same test.sh, make sure it doesn't remove or create a new input:
+#!/bin/sh
+../../start.sh
+/usr/local/hadoop/bin/hadoop jar /usr/local/hadoop/share/hadoop/tools/lib/hadoop-streaming-3.3.1.jar \
+-file ../../mapreduce-test-python/p1/mapper.py -mapper ../../mapreduce-test-python/p1/mapper.py \
+-file ../../mapreduce-test-python/p1/reducer.py -reducer ../../mapreduce-test-python/p1/reducer.py \
+-input /p1/input/* -output /p1/output/
+/usr/local/hadoop/bin/hdfs dfs -cat /p1/output/part-00000
+/usr/local/hadoop/bin/hdfs dfs -rm -r /p1/output/
+../../stop.sh
+
+Step 4:
+Run the mappers and reducers in folders Q1 to Q4, they are all called mapper.py and reducer.py with test.sh remaining unchanged.
+All folders include the codes and screenshots of the output from the terminal.
+
+Ste 5:
+You can remove the files from your HDFS by following these steps:
+bash /mapreduce-test/start.sh
+hdfs dfs -rm -r /p1
+bash /mapreduce-test/stop.sh
