@@ -1,4 +1,4 @@
-# Big-Data-Parking-Tickets
+# NYC Parking Violations Analysis
 
 NYC Parking Violations Analysis using PySpark, HDFS, and MapReduce
 
